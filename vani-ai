@@ -1,90 +1,38 @@
-from zipfile import ZipFile
-import os
+project_files = {
+    "vani-ai/package.json": '''{
+  "name": "vani-ai",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+}''',
+    "vani-ai/public/index.html": '''<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <title>Vani AI</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>''',
+    "vani-ai/src/index.js": '''import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-# Define the folder and filenames
-project_name = "vani-ai"
-project_dir = f"/mnt/data/{project_name}"
-os.makedirs(project_dir, exist_ok=True)
-
-# File content (React code for Vani AI)
-vani_ai_code = """
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
-export default function VaniAI() {
-  const [messages, setMessages] = useState([
-    { from: "vani", text: "Hello, I’m Vani — your intelligent and humble AI friend. How can I help you today?" },
-  ]);
-  const [input, setInput] = useState("");
-
-  const handleSend = () => {
-    if (!input.trim()) return;
-    const newMessages = [...messages, { from: "user", text: input }];
-    setMessages(newMessages);
-
-    const response = {
-      from: "vani",
-      text: `That’s a thoughtful question, Adesh. Let me guide you with care... (simulated reply to: ${input})`,
-    };
-    setTimeout(() => setMessages([...newMessages, response]), 1000);
-    setInput("");
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-100 to-rose-300 flex flex-col items-center p-4 text-gray-800">
-      <h1 className="text-4xl font-bold text-red-800 mb-2">Vani AI</h1>
-      <p className="text-sm text-red-700 mb-4">
-        By Adesh Kumar Jha, Mumbai — Age 25 <br />
-        Contact: <a href="tel:7715953192" className="underline text-red-600">7715953192</a>
-      </p>
-
-      <Card className="w-full max-w-xl bg-white shadow-xl rounded-2xl">
-        <CardContent className="p-4 space-y-3 h-[60vh] overflow-y-auto">
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={\`p-2 rounded-xl w-fit max-w-xs \${msg.from === "vani"
-                ? "bg-red-100 text-left text-red-900"
-                : "bg-red-300 text-white self-end ml-auto"}\`}
-            >
-              {msg.text}
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-
-      <div className="flex mt-4 w-full max-w-xl gap-2">
-        <Input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask Vani anything..."
-          className="flex-1"
-        />
-        <Button onClick={handleSend} className="bg-red-500 hover:bg-red-600 text-white">
-          Send
-        </Button>
-      </div>
-
-      <div className="mt-6 text-sm text-center text-red-800">
-        This is a demo of Vani AI created by Adesh Kumar Jha. It will be hosted publicly and shared across search engines soon.
-        <br />
-        Website link will be shared once published.
-      </div>
-    </div>
-  );
-}
-"""
-
-# Save file in project directory
-file_path = os.path.join(project_dir, "VaniAI.tsx")
-with open(file_path, "w") as f:
-    f.write(vani_ai_code)
-
-# Create a zip file
-zip_path = f"/mnt/data/{project_name}.zip"
-with ZipFile(zip_path, 'w') as zipf:
-    zipf.write(file_path, arcname="VaniAI.tsx")
-
-zip_path
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <
